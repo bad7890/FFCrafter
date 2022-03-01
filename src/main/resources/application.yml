@@ -1,0 +1,30 @@
+spring:
+  profiles:
+    active: dev
+
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: "jdbc:mysql://${cnf.mysql.ip}:3306?autoReconnect=true&useSSL=false\
+          &useUnicode=true&characterEncoding=UTF-8"
+    hikari:
+      catalog: ff_crafter
+      username: ${cnf.mysql.username}
+      password: ${cnf.mysql.password}
+      auto-commit: true
+      transaction-isolation: TRANSACTION_READ_COMMITTED
+      connection-timeout: 60000
+      maximum-pool-size: 20
+      idle-timeout: 60000
+      max-lifetime: 1800000
+      connection-init-sql: "SET NAMES 'utf8mb4'"
+
+server:
+  port: ${cnf.port}
+
+logging:
+  level:
+    com.mengtun.ffcrafter.feign: debug  #feign日志增强
+
+feign:
+  httpclient:
+    enabled: true  #切换成 feign http client
