@@ -1,9 +1,10 @@
 package com.mengtun.ffcrafter.dao.mapper;
 
-import org.apache.ibatis.annotations.Mapper;
+import com.mengtun.ffcrafter.entity.FFItem;
+import com.mengtun.ffcrafter.entity.example.FFItemExample;
 import org.apache.ibatis.annotations.Param;
 
-@Mapper
-public interface FFItemMapper {
-    String getNameById(@Param("id") int id);
+public interface FFItemMapper extends BaseMapper<FFItem, FFItemExample, Integer>{
+
+  String getNameById(@Param("itemId") Integer itemId);
 }
