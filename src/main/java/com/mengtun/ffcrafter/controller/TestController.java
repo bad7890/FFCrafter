@@ -1,5 +1,7 @@
 package com.mengtun.ffcrafter.controller;
 
+import com.mengtun.ffcrafter.constant.ResponseEnum;
+import com.mengtun.ffcrafter.exception.FException;
 import com.mengtun.ffcrafter.feign.UniversalisFeign;
 import com.mengtun.ffcrafter.feign.WikiCNFeign;
 import com.mengtun.ffcrafter.feign.WikiFeign;
@@ -48,4 +50,13 @@ public class TestController {
     public String taxRates(@RequestParam String str) {
         return universalisFeign.taxRates(str);
     }
+
+
+    //报错测试
+    @GetMapping("error")
+    public String getById() {
+        throw FException.ex(ResponseEnum.FORBIDDEN);
+
+    }
+
 }
