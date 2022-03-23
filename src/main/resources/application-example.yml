@@ -6,3 +6,5 @@ cnf:
 
 
   port: 8081
+
+  test: true
