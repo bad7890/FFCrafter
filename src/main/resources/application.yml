@@ -28,3 +28,9 @@ logging:
 feign:
   httpclient:
     enabled: true  #切换成 feign http client
+
+
+
+
+
+
