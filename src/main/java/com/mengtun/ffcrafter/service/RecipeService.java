@@ -1,9 +1,11 @@
 package com.mengtun.ffcrafter.service;
 
+import cn.hutool.json.JSONArray;
 import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
 import com.mengtun.ffcrafter.dao.mapper.FFRecipeMapper;
 import com.mengtun.ffcrafter.entity.FFRecipe;
+import com.mengtun.ffcrafter.feign.WikiCNFeign;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,9 +18,12 @@ public class RecipeService {
   @Autowired
   FFRecipeMapper ffRecipeMapper;
 
-  public List<FFRecipe> getRecipeByJobAndLevel(String job,Integer minLevel,Integer maxLevel){
+  @Autowired
+  private WikiCNFeign wikiCNFeign;
+
+  public List<FFRecipe> getRecipeByJobAndLevel(String job,Integer minLevel,Integer maxLevel,Integer minStar,Integer maxStar){
     List<FFRecipe> ffRecipeList;
-    if(job==null||minLevel==null||maxLevel==null)return null;
+    /*if(job==null||minLevel==null||maxLevel==null)return null;
     if(job.equals("")&&maxLevel==0)
       ffRecipeList=ffRecipeMapper.getRecipeAll();
     else if(job.equals(""))
@@ -26,7 +31,8 @@ public class RecipeService {
     else if(maxLevel==0)
       ffRecipeList=ffRecipeMapper.getRecipeByJob(job);
     else
-      ffRecipeList=ffRecipeMapper.getRecipeByJobAndLevel(job,minLevel,maxLevel);
+      ffRecipeList=ffRecipeMapper.getRecipeByJobAndLevel(job,minLevel,maxLevel);*/
+    ffRecipeList=ffRecipeMapper.getRecipeList(job,minLevel,maxLevel,minStar,maxStar);
     return ffRecipeList;
   }
 
@@ -66,5 +72,18 @@ public class RecipeService {
       }
     }
     return recipeJson;
+  }
+
+  public void updateRecipeTable(){
+    List<Integer> idList=ffRecipeMapper.getRecipeIdList();
+    JSONObject recipeListJson=wikiCNFeign.getRecipeList(1);
+    Integer pageTotal=recipeListJson.getJSONObject("Pagination").getInt("PageTotal");
+    for(int page=1;page<=pageTotal;page++){
+      Integer Results=recipeListJson.getJSONObject("Pagination").getInt("Results");
+      JSONArray recipeList=recipeListJson.getJSONArray("Results");
+      for(int index=0;index<Results;index++){
+
+      }
+    }
   }
 }

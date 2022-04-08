@@ -27,8 +27,8 @@ public class RecipeController {
      * @return 配方清单
      */
     @GetMapping("getRecipeList")
-    public List<FFRecipe> getRecipeByJobAndLevel( String job,  Integer minLevel,  Integer maxLevel) {
-        return recipeService.getRecipeByJobAndLevel(job,minLevel,maxLevel);
+    public List<FFRecipe> getRecipeByJobAndLevel( String job,  Integer minLevel,  Integer maxLevel,Integer minStar,Integer maxStar) {
+        return recipeService.getRecipeByJobAndLevel(job,minLevel,maxLevel,minStar,maxStar);
     }
 
     /**

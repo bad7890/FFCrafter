@@ -1,10 +1,13 @@
 package com.mengtun.ffcrafter.feign;
 
-import com.mengtun.ffcrafter.config.UnicodeDecoderConfiguration;
+import cn.hutool.json.JSONObject;
 import com.mengtun.ffcrafter.feign.fallback.WikiCNFeignFallBack;
 import com.mengtun.ffcrafter.model.wikiSearch.SearchVo;
+import feign.Param;
+import feign.RequestLine;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @FeignClient(
@@ -29,4 +32,10 @@ public interface WikiCNFeign {
   SearchVo search(
       @RequestParam("String") String name,
       @RequestParam(value = "indexes", required = false) String indexes);
+
+  @GetMapping(value = "recipe", consumes = "application/json")
+  JSONObject getRecipeList(@Param("String") Integer page);
+
+  @GetMapping(value = "recipe/{id}", consumes = "application/json")
+  JSONObject getRecipeById(@PathVariable(value = "id") Integer id);
 }

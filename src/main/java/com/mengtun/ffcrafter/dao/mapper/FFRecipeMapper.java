@@ -11,8 +11,10 @@ import java.util.List;
 public interface FFRecipeMapper extends BaseMapper<FFRecipe, FFRecipeExample, Integer>{
     List<FFRecipe> getRecipeByItemId(@Param("itemId") Integer itemId);
     FFRecipe getRecipeByRecipeId(@Param("recipeId") Integer recipeId);
-    List<FFRecipe> getRecipeByJobAndLevel(@Param("job") String job,@Param("minLevel") Integer minLevel,@Param("maxLevel") Integer maxLevel);
+/*    List<FFRecipe> getRecipeByJobAndLevel(@Param("job") String job,@Param("minLevel") Integer minLevel,@Param("maxLevel") Integer maxLevel);
     List<FFRecipe> getRecipeByJob(@Param("job") String job);
     List<FFRecipe> getRecipeByLevel(@Param("minLevel") Integer minLevel,@Param("maxLevel") Integer maxLevel);
-    List<FFRecipe> getRecipeAll();
+    List<FFRecipe> getRecipeAll();*/
+    List<FFRecipe> getRecipeList(@Param("job") String job,@Param("minLevel") Integer minLevel,@Param("maxLevel") Integer maxLevel,@Param("minStar") Integer minStar,@Param("maxStar") Integer maxStar);
+    List<Integer> getRecipeIdList();
 }

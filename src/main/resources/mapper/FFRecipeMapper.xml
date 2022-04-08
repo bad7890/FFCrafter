@@ -9,7 +9,7 @@
     select * from ff_recipe where recipe_id = #{recipeId}
   </select>
 
-  <select id="getRecipeByJobAndLevel" resultType="com.mengtun.ffcrafter.entity.FFRecipe">
+  <!--<select id="getRecipeByJobAndLevel" resultType="com.mengtun.ffcrafter.entity.FFRecipe">
     select * from ff_recipe where recipe_class = #{job} and recipe_level&gt;=#{minLevel} and recipe_level&lt;=#{maxLevel}
   </select>
 
@@ -19,11 +19,29 @@
 
   <select id="getRecipeByLevel" resultType="com.mengtun.ffcrafter.entity.FFRecipe">
     select * from ff_recipe where recipe_level&gt;=#{minLevel} and recipe_level&lt;=#{maxLevel}
+  </select>-->
+
+  <select id="getRecipeList" resultType="com.mengtun.ffcrafter.entity.FFRecipe">
+    select * from ff_recipe where 1=1
+    <if test="job != '' and job != null">
+      and recipe_class = #{job}
+    </if>
+    <if test="minLevel!= null">
+      and recipe_level&gt;=#{minLevel}
+    </if>
+    <if test="maxLevel!= null">
+      and recipe_level&lt;=#{maxLevel}
+    </if>
+    <if test="minStar!= null">
+      and recipe_star&gt;=#{minStar}
+    </if>
+    <if test="maxStar!= null">
+      and recipe_star&lt;=#{maxStar}
+    </if>
   </select>
 
-  <select id="getRecipeAll" resultType="com.mengtun.ffcrafter.entity.FFRecipe">
-    select * from ff_recipe
+  <select id="getRecipeIdList" resultType="java.lang.Integer">
+    select recipe_id from ff_recipe
   </select>
-
 
 </mapper>
