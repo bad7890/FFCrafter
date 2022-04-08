@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -27,7 +28,11 @@ public class RecipeController {
      * @return 配方清单
      */
     @GetMapping("getRecipeList")
-    public List<FFRecipe> getRecipeByJobAndLevel( String job,  Integer minLevel,  Integer maxLevel,Integer minStar,Integer maxStar) {
+    public List<FFRecipe> getRecipeByJobAndLevel(@RequestParam(required = false) String job,
+                                                 @RequestParam(required = false) Integer minLevel,
+                                                 @RequestParam(required = false) Integer maxLevel,
+                                                 @RequestParam(required = false) Integer minStar,
+                                                 @RequestParam(required = false) Integer maxStar) {
         return recipeService.getRecipeByJobAndLevel(job,minLevel,maxLevel,minStar,maxStar);
     }
 
@@ -37,7 +42,7 @@ public class RecipeController {
      * @return 配方合成树json
      */
     @GetMapping("getRecipeDetailByRecipeId")
-    public JSONObject getRecipeDetailByRecipeId(Integer recipeId) {
+    public JSONObject getRecipeDetailByRecipeId(@RequestParam Integer recipeId) {
         return recipeService.getRecipeDetailByRecipeId(recipeId);
     }
 }
